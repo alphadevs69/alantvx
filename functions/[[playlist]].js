@@ -19,7 +19,29 @@ export async function onRequest(context) {
   ) {
     return await context.next();
   }
+const request = context.request;
 
+const accept =
+  request.headers.get("accept") || "";
+
+const secFetchDest =
+  request.headers.get("sec-fetch-dest") || "";
+
+const secFetchMode =
+  request.headers.get("sec-fetch-mode") || "";
+
+// Browser asli
+const isBrowser =
+  secFetchDest === "document" ||
+  secFetchMode === "navigate";
+
+// Browser buka playlist → redirect homepage
+if (isBrowser) {
+  return Response.redirect(
+    "https://alantvid.pages.dev/",
+    302
+  );
+}
   // playlist tidak ada
   if (!playlists[path]) {
     return Response.redirect(
