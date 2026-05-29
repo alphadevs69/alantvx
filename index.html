@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>alantv@project</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Welcome <span>alantv@project</span></h1>
+<p>Enjoy The World Comrade</p>
+
+<a id="appBtn" class="btn" href="#">
+Get App
+</a>
+
+<button class="btn" onclick="toggleMenu()">
+Copy playlist
+</button>
+
+<div class="copy-menu" id="copyMenu">
+
+<button onclick="copyLink('https://alantvid.pages.dev/pltv.m3u')">
+Pltv
+</button>
+
+<button onclick="copyLink('https://alantvid.pages.dev/sport.m3u')">
+plsport
+</button>
+
+<button onclick="copyLink('https://alantvid.pages.dev/movie.m3u')">
+plmovie
+</button>
+
+<button onclick="copyLink('https://alantvid.pages.dev/txx.m3u')">
+plxxx
+</button>
+
+</div>
+
+<button class="btn" onclick="showImage()">
+Nyawits
+</button>
+
+<div class="image-box" id="sawitImage">
+<img src="nyawits.png" alt="Tandan Sawit">
+</div>
+
+</div>
+
+<div id="musicPlayer">
+<div id="disc">♫</div>
+<button id="musicBtn" onclick="toggleMusic()">⏸</button>
+</div>
+
+<audio id="bgMusic" autoplay loop playsinline>
+<source src="https://tjemmajfbnrcbxasemdm.supabase.co/storage/v1/object/public/app_project/nyawitsoungs.mp3" type="audio/mpeg">
+</audio>
+
+<div class="toast" id="toast">
+congrats Comrades!
+</div>
+
+</body>
+</html>
