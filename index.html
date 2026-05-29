@@ -1,0 +1,88 @@
+<script>
+(function () {
+
+  const APK_URL = "https://alantvid.pages.dev/app.apk";
+
+  // package OTT Navigator
+  const PACKAGE_NAME = "studio.scillarium.ottnavigator";
+
+  function isAndroid() {
+    return /Android/i.test(navigator.userAgent);
+  }
+
+  function downloadApk() {
+    window.location.href = APK_URL;
+  }
+
+  function openOrDownload(e) {
+
+    e.preventDefault();
+
+    // desktop langsung download
+    if (!isAndroid()) {
+      downloadApk();
+      return;
+    }
+
+    let appOpened = false;
+
+    // jika app berhasil terbuka browser jadi hidden
+    const visibilityHandler = () => {
+      if (document.hidden) {
+        appOpened = true;
+      }
+    };
+
+    document.addEventListener(
+      "visibilitychange",
+      visibilityHandler
+    );
+
+    // fallback download APK jika gagal launch
+    const fallback = setTimeout(() => {
+
+      document.removeEventListener(
+        "visibilitychange",
+        visibilityHandler
+      );
+
+      if (!appOpened) {
+        downloadApk();
+      }
+
+    }, 1600);
+
+    // bersihkan timer jika pindah app
+    window.addEventListener("pagehide", () => {
+      appOpened = true;
+      clearTimeout(fallback);
+    });
+
+    // launch OTT Navigator
+    // format intent ini paling kompatibel Chrome Android
+    window.location.href =
+      "intent://#Intent;" +
+      "scheme=ottnavigator;" +
+      "package=" + PACKAGE_NAME + ";" +
+      "end";
+
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+
+    const appBtn = document.getElementById("appBtn");
+
+    if (!appBtn) return;
+
+    // supaya tidak navigate default
+    appBtn.href = "#";
+
+    appBtn.addEventListener(
+      "click",
+      openOrDownload
+    );
+
+  });
+
+})();
+</script>
